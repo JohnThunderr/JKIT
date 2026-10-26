@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="lv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>JKI Trans — prototips</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16181D;--muted:#5B5F68;--sub:#3D4048;--line:#E2E0D8;--ground:#F6F5F1;--land:#ECEAE3;--accent:#F2B705;--blue:#1F4FD1;--green:#1E7A46;--soft-green:#E6F2EA;--red:#B3261E;--soft-red:#FBEAEA}
+*{box-sizing:border-box}
+body{margin:0;background:#D9D7CF;font-family:Manrope,system-ui,sans-serif;color:var(--ink)}
+button{font-family:inherit;cursor:pointer;color:inherit}
+button:disabled{cursor:default}
+a{color:var(--blue)}
+.topbar{position:sticky;top:0;z-index:5;background:var(--ink);color:#fff;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800}
+.logo{width:30px;height:30px;border-radius:8px;background:var(--accent);color:var(--ink);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{height:38px;padding:0 14px;border-radius:999px;border:1px solid #4A4E58;background:transparent;color:#fff;font-weight:700;font-size:13px}
+.tab.on{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.demo{font-size:12px;color:#C9CBD1}
+.stage{padding:24px 16px 48px;display:flex;justify-content:center}
+.phone{width:390px;max-width:100%;height:844px;border-radius:28px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.25);display:flex;flex-direction:column;border:8px solid var(--ink)}
+.phone.light{background:var(--ground)}
+.phone.dark{background:var(--ink);color:#fff}
+.apphead{height:56px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:var(--ink);color:#fff}
+.apphead small{display:block;font-size:11px;color:#C9CBD1;font-weight:500}
+.map{position:relative;height:270px;flex-shrink:0;background:var(--land);overflow:hidden}
+.map svg{position:absolute;left:0;top:0}
+.pin{position:absolute;width:84px;height:46px;padding:0;border:none;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px}
+.pin .dot{width:22px;height:22px;border-radius:11px;border:2px solid var(--ink);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pin .lbl{font-size:11px;font-weight:700;background:#fff;border-radius:6px;padding:1px 6px;white-space:nowrap}
+.live{position:absolute;right:12px;top:12px;background:var(--ink);color:#fff;font-size:11px;font-weight:700;padding:6px 10px;border-radius:999px}
+.sheet{flex:1;overflow-y:auto;background:#fff;border-radius:20px 20px 0 0;margin-top:-16px;position:relative;padding:20px 16px 24px;display:flex;flex-direction:column;gap:14px}
+h1{margin:0;font-size:22px;font-weight:800}
+h2{margin:0;font-size:18px;font-weight:800}
+.hint{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
+.steps{display:flex;gap:6px}
+.steps div{flex:1;display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:700}
+.steps i{display:block;height:4px;border-radius:2px}
+.cta{height:52px;border:none;border-radius:14px;background:var(--accent);color:var(--ink);font-size:15px;font-weight:800}
+.cta:disabled{opacity:.45}
+.ghost{height:44px;border:none;background:transparent;font-size:14px;font-weight:700;color:var(--sub)}
+.out{height:44px;border:1px solid var(--ink);border-radius:12px;background:#fff;font-size:13px;font-weight:700}
+.chip{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--ink);background:#fff;font-size:13px;font-weight:700}
+.box{border:1px solid var(--line);border-radius:12px}
+.ab{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.ab span.b{width:20px;height:20px;border-radius:10px;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.ab small{display:block;font-size:11px;color:var(--muted)}
+.ab strong{font-size:14px}
+.info{display:flex;justify-content:space-between;align-items:center;background:var(--ground);border-radius:12px;padding:12px 14px;font-size:13px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.slot{height:54px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.slot b{font-size:15px}.slot span{font-size:11px;font-weight:600}
+.row{display:flex;justify-content:space-between;font-size:13px;color:var(--sub)}
+.pay{height:52px;border-radius:14px;font-size:16px;font-weight:700}
+.tl{display:flex;gap:12px}
+.tl .rail{display:flex;flex-direction:column;align-items:center;width:16px}
+.tl .rail i{width:14px;height:14px;border-radius:7px;border:2px solid;margin-top:2px}
+.tl .rail u{flex:1;width:2px;min-height:16px;text-decoration:none}
+.tl .txt{display:flex;flex-direction:column;gap:1px;padding-bottom:10px;font-size:14px}
+.tl .txt small{font-size:12px;color:var(--muted)}
+.card{background:#fff;color:var(--ink);border-radius:16px}
+.tag{font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px;white-space:nowrap}
+.admin{width:100%;max-width:1280px;background:var(--ground);border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.2);display:flex;flex-wrap:wrap}
+.admin nav{flex:1 1 200px;max-width:240px;background:#fff;border-right:1px solid var(--line);padding:20px 12px;display:flex;flex-direction:column;gap:4px}
+.admin nav a{padding:10px 12px;border-radius:10px;color:var(--ink);text-decoration:none;font-size:14px;font-weight:600}
+.admin nav a.on{background:var(--ink);color:#fff;font-weight:700}
+.admin main{flex:999 1 560px;min-width:0;padding:24px;display:flex;flex-direction:column;gap:20px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.lane{display:flex;gap:12px;align-items:center}
+.lane .who{width:130px;flex-shrink:0;font-size:14px;font-weight:800}
+.lane .who small{display:block;font-size:12px;color:var(--muted);font-weight:500}
+.track{flex:1;position:relative;height:56px;background:var(--ground);border-radius:10px;overflow:hidden}
+.blk{position:absolute;top:8px;bottom:8px;border-radius:6px;font-size:11px;font-weight:800;display:flex;align-items:center;padding:0 6px;overflow:hidden;white-space:nowrap}
+.stripe{background-image:repeating-linear-gradient(135deg,#C9C6BC 0 4px,#ECEAE3 4px 8px)}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+th{text-align:left;color:var(--muted);font-size:12px;font-weight:700;padding:8px}
+td{padding:10px 8px;border-top:1px solid var(--line)}
+.rule{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;font-weight:600}
+.rule input[type=text]{width:72px;height:36px;border:1px solid #C9C6BC;border-radius:8px;padding:0 10px;font-family:inherit;font-size:14px;font-weight:700;text-align:right}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--sub);padding-left:142px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:10px;border-radius:3px;display:inline-block}
+@media (max-width:700px){.legend{padding-left:0}.lane .who{width:84px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+<div class="brand"><span class="logo">JKI</span><span>JKI Trans · prototips</span></div>
+<div class="tabs" role="tablist">
+<button class="tab" data-act="tab" data-v="client" role="tab">Klients</button>
+<button class="tab" data-act="tab" data-v="driver" role="tab">Vadītājs</button>
+<button class="tab" data-act="tab" data-v="admin" role="tab">Administrācija</button>
+</div>
+<span class="demo">Demonstrācijas dati · cenas ir piemērs</span>
+</header>
+<div class="stage" id="view"></div>
+
+<script>
+(function () {
+  var S = {
+    tab: 'client',
+    c: { step: 'route', pick: null, drop: null, day: 0, slot: null, mode: 'prepaid', stage: 0, optIn: false },
+    d: { stage: 0, incoming: 'open', online: true },
+    a: { base: '5,00', perKm: '1,10', guarantee: '8,00', night: '20', buffer: '15', cancel: '12', carPay: true }
+  };
+  var P = [
+    { id: 'C', name: 'Vecrīga', x: 268, y: 158 },
+    { id: 'H', name: 'Pasažieru osta', x: 236, y: 96 },
+    { id: 'A', name: 'Lidosta RIX', x: 150, y: 236 },
+    { id: 'P', name: 'Purvciems', x: 320, y: 128 },
+    { id: 'I', name: 'Imanta', x: 160, y: 168 },
+    { id: 'J', name: 'Jūrmala', x: 46, y: 128 }
+  ];
+  var KM = { 'A-C': 12, 'C-H': 3, 'C-P': 7, 'C-I': 8, 'C-J': 25, 'A-H': 14, 'A-P': 17, 'A-I': 8, 'A-J': 17, 'H-P': 8, 'H-I': 10, 'H-J': 27, 'I-P': 14, 'J-P': 31, 'I-J': 18 };
+  var DAYS = [{ l: 'Šodien', d: 'P, 26.10' }, { l: 'Rīt', d: 'O, 27.10' }, { l: 'Trešd.', d: 'T, 28.10' }];
+  var TAKEN = [['05:00', '05:30', '08:00'], ['04:30', '16:00'], []];
+  var SLOTS = ['04:30', '05:00', '05:30', '06:00', '07:00', '08:00', '10:00', '13:00', '16:00', '19:00', '21:00', '22:30'];
+  var BASE = { x: 300, y: 206 };
+
+  function byId(id) { for (var i = 0; i < P.length; i++) if (P[i].id === id) return P[i]; return null; }
+  function eur(n) { return n.toFixed(2).replace('.', ',') + ' €'; }
+  function num(v) { var n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? 0 : n; }
+  function night(t) { var h = parseInt(t, 10); return h < 6 || h >= 22; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  function route() {
+    var c = S.c, pk = c.pick ? byId(c.pick) : null, dp = c.drop ? byId(c.drop) : null;
+    var has = !!(pk && dp), km = has ? KM[[pk.id, dp.id].sort().join('-')] : 0;
+    var sub = 5 + km * 1.1, n = c.slot && night(c.slot);
+    return { pk: pk, dp: dp, has: has, km: km, mins: has ? Math.round(km * 1.8 + 6) : 0, sub: sub, n: n,
+      g: (sub + 8) * (n ? 1.2 : 1), r: sub * (n ? 1.2 : 1) };
+  }
+  function statuses(R) {
+    var list = [
+      { l: 'Apmaksāts un garantēts', h: 'Vadītājs izbrauks laicīgi' },
+      { l: 'Vadītājs ceļā', h: 'Ieradīsies pēc ~8 min · seko kartē' },
+      { l: 'Vadītājs ieradies', h: 'Gaida iekāpšanas vietā' },
+      { l: 'Brauciens notiek', h: 'Galamērķī pēc ~' + R.mins + ' min' },
+      { l: 'Pabeigts', h: 'Paldies, ka braucāt ar JKI Trans' }
+    ];
+    if (S.c.mode === 'car') { list[0] = { l: 'Vadītājs apstiprināja', h: 'Maksājums automašīnā ar karti' }; list.unshift({ l: 'Gaida vadītāja apstiprinājumu', h: 'Parasti dažu minūšu laikā' }); }
+    return list;
+  }
+
+  function client() {
+    var c = S.c, R = route(), list = statuses(R), stage = Math.min(c.stage, list.length - 1);
+    var ride = c.mode === 'car' ? stage - 1 : stage, done = c.step === 'done';
+    var car = BASE;
+    if (R.has && done) {
+      if (ride === 1) car = { x: (BASE.x + R.pk.x) / 2, y: (BASE.y + R.pk.y) / 2 };
+      else if (ride === 2) car = R.pk;
+      else if (ride === 3) car = { x: (R.pk.x + R.dp.x) / 2, y: (R.pk.y + R.dp.y) / 2 };
+      else if (ride >= 4) car = R.dp;
+    }
+    var tracking = done && ride >= 1 && ride <= 3;
+    var pickName = R.pk ? R.pk.name : 'Izvēlieties kartē', dropName = R.dp ? R.dp.name : 'Izvēlieties kartē';
+    var when = c.slot ? DAYS[c.day].l + ' ' + DAYS[c.day].d.split(', ')[1] + ', ' + c.slot : '';
+
+    var h = '<div class="phone light"><div class="apphead"><div class="brand"><span class="logo" style="width:28px;height:28px">JKI</span><span>JKI Trans<small>Garantētie braucieni · Rīga</small></span></div><span class="demo">LV · EN · RU</span></div>';
+    h += '<div class="map"><svg width="390" height="270" aria-hidden="true">' +
+      '<path d="M0,0 L214,0 C200,40 150,70 100,86 C60,98 24,104 0,108 Z" fill="#BFD6E6"/>' +
+      '<path d="M390,262 C330,232 276,206 256,176 C240,148 234,112 224,64 C220,34 216,12 214,0" fill="none" stroke="#BFD6E6" stroke-width="16" stroke-linecap="round"/>' +
+      '<g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M268,158 C232,192 192,214 150,236"/><path d="M268,158 L200,152 L120,140 L44,128"/><path d="M268,158 L318,132 L390,120"/><path d="M268,158 L236,96"/><path d="M160,168 L150,236"/><path d="M268,158 L300,206 L360,250"/></g>' +
+      '<circle cx="300" cy="206" r="5" fill="#5B5F68"/>';
+    if (done && ride === 1 && R.has) h += '<line x1="300" y1="206" x2="' + R.pk.x + '" y2="' + R.pk.y + '" stroke="#16181D" stroke-width="3" stroke-dasharray="6 6"/>';
+    if (R.has) h += '<line x1="' + R.pk.x + '" y1="' + R.pk.y + '" x2="' + R.dp.x + '" y2="' + R.dp.y + '" stroke="#1F4FD1" stroke-width="5" stroke-linecap="round"/>';
+    if (tracking) h += '<circle cx="' + car.x + '" cy="' + car.y + '" r="9" fill="#F2B705" stroke="#16181D" stroke-width="3"/>';
+    h += '</svg><span style="position:absolute;left:308px;top:212px;font-size:10px;font-weight:700;color:#3D4048">Bāze</span><span style="position:absolute;left:12px;top:12px;font-size:11px;font-weight:600;color:#2D5B78">Rīgas jūras līcis</span>';
+    P.forEach(function (p) {
+      var a = c.pick === p.id, b = c.drop === p.id;
+      h += '<button class="pin" data-act="pick" data-v="' + p.id + '" aria-label="Izvēlēties: ' + p.name + '" style="left:' + (p.x - 42) + 'px;top:' + (p.y - 11) + 'px"><span class="dot" style="background:' + (a ? '#1E7A46' : b ? '#16181D' : '#fff') + '">' + (a ? 'A' : b ? 'B' : '') + '</span><span class="lbl">' + p.name + '</span></button>';
+    });
+    if (tracking) h += '<span class="live">● Tiešraide — vadītāja atrašanās vieta</span>';
+    h += '</div><div class="sheet">';
+
+    if (!done) {
+      var si = { route: 0, time: 1, pay: 2 }[c.step];
+      h += '<div class="steps">' + ['1 Maršruts', '2 Laiks', '3 Apmaksa'].map(function (l, i) {
+        return '<div style="color:' + (i <= si ? '#16181D' : '#5B5F68') + '"><i style="background:' + (i <= si ? '#16181D' : '#E2E0D8') + '"></i>' + l + '</div>';
+      }).join('') + '</div>';
+    }
+
+    if (c.step === 'route') {
+      h += '<div><h1>Kur brauksim?</h1><p class="hint">Pieskarieties kartē: vispirms iekāpšanas vieta (A), tad galamērķis (B). Īstajā versijā — jebkura adrese vai punkts kartē.</p></div>' +
+        '<div style="display:flex;gap:10px"><div class="box" style="flex:1"><div class="ab" style="border-bottom:1px solid #E2E0D8"><span class="b" style="background:#1E7A46">A</span><div><small>Iekāpšana</small><strong>' + pickName + '</strong></div></div><div class="ab"><span class="b" style="background:#16181D">B</span><div><small>Galamērķis</small><strong>' + dropName + '</strong></div></div></div>' +
+        '<button class="box" data-act="swap" aria-label="Mainīt vietām" style="width:44px;background:#fff">⇅</button></div>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="chip" data-act="quick" data-v="A">Uz lidostu RIX</button><button class="chip" data-act="quick" data-v="H">Uz pasažieru ostu</button></div>';
+      if (R.has) h += '<div class="info"><span>≈ ' + R.km + ' km · ≈ ' + R.mins + ' min</span><strong style="font-size:15px">no ' + eur(R.sub + 8) + '</strong></div>';
+      h += '<button class="cta" data-act="step" data-v="time"' + (R.has ? '' : ' disabled') + '>Tālāk — izvēlēties laiku</button>';
+    }
+
+    if (c.step === 'time') {
+      h += '<div><h1>Kad jābūt iekāpšanas vietā?</h1><p class="hint">Redzami tikai brīvie laiki. Katram braucienam kalendārā rezervējam arī vadītāja ceļu līdz jums.</p></div><div style="display:flex;gap:8px">';
+      DAYS.forEach(function (d, i) {
+        var on = i === c.day;
+        h += '<button data-act="day" data-v="' + i + '" style="flex:1;height:52px;border-radius:12px;border:1px solid ' + (on ? '#16181D' : '#E2E0D8') + ';background:' + (on ? '#16181D' : '#fff') + ';color:' + (on ? '#fff' : '#16181D') + '"><b style="font-size:13px">' + d.l + '</b><br><span style="font-size:11px">' + d.d + '</span></button>';
+      });
+      h += '</div><div class="grid3">';
+      SLOTS.forEach(function (t) {
+        var tk = TAKEN[c.day].indexOf(t) >= 0, sel = c.slot === t;
+        h += '<button class="slot" data-act="slot" data-v="' + t + '"' + (tk ? ' disabled' : '') + ' style="border:' + (sel ? '2px solid #16181D' : '1px solid #E2E0D8') + ';background:' + (sel ? '#F2B705' : tk ? '#F6F5F1' : '#fff') + ';color:' + (tk ? '#6B6F78' : '#16181D') + '"><b style="text-decoration:' + (tk ? 'line-through' : 'none') + '">' + t + '</b><span>' + (tk ? 'Aizņemts' : night(t) ? 'Nakts +20%' : 'Brīvs') + '</span></button>';
+      });
+      h += '</div><button class="cta" data-act="step" data-v="pay"' + (c.slot ? '' : ' disabled') + '>Tālāk — cena un apmaksa</button><button class="ghost" data-act="step" data-v="route">← Atpakaļ uz maršrutu</button>';
+    }
+
+    if (c.step === 'pay') {
+      h += '<h1>Fiksēta cena</h1><div class="box" style="border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px"><div><strong style="font-size:15px">' + pickName + ' → ' + dropName + '</strong><br><span style="font-size:13px;color:#5B5F68">' + when + ' · ≈ ' + R.km + ' km · ≈ ' + R.mins + ' min</span></div><div style="height:1px;background:#E2E0D8"></div>' +
+        '<div class="row"><span>Bāzes maksa</span><span>' + eur(5) + '</span></div>' +
+        '<div class="row"><span>Attālums ' + R.km + ' km × ' + eur(1.1) + '</span><span>' + eur(R.km * 1.1) + '</span></div>' +
+        '<div class="row"><span>Garantēts laiks</span><span>' + eur(8) + '</span></div>' +
+        (R.n ? '<div class="row"><span>Nakts piemaksa 22:00–06:00 (+20%)</span><span>' + eur((R.sub + 8) * 0.2) + '</span></div>' : '') +
+        '<div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:14px">Kopā, garantēts</b><b style="font-size:24px">' + eur(R.g) + '</b></div></div>' +
+        '<button class="pay" data-act="pay" data-v="prepaid" style="border:none;background:#000;color:#fff">Apple Pay — maksāt ' + eur(R.g) + '</button>' +
+        '<button class="pay" data-act="pay" data-v="prepaid" style="border:1px solid #16181D;background:#fff">Google Pay — maksāt ' + eur(R.g) + '</button>' +
+        '<button class="pay" data-act="pay" data-v="prepaid" style="border:1px solid #16181D;background:#fff;font-size:15px">Bankas maksājums<br><span style="font-size:11px;color:#5B5F68;font-weight:600">Swedbank · SEB · Citadele · Luminor</span></button>';
+      if (S.a.carPay) h += '<div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#5B5F68"><i style="flex:1;height:1px;background:#E2E0D8"></i>vai<i style="flex:1;height:1px;background:#E2E0D8"></i></div>' +
+        '<button data-act="pay" data-v="car" style="min-height:52px;border:1px dashed #5B5F68;border-radius:14px;background:#F6F5F1;padding:8px"><b style="font-size:14px">Maksāt automašīnā — ' + eur(R.r) + '</b><br><span style="font-size:11px;color:#3D4048">Pieprasījums bez garantijas — vadītājs apstiprina</span></button>';
+      h += '<label style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:#3D4048;line-height:1.4"><input type="checkbox" data-act="optin"' + (c.optIn ? ' checked' : '') + ' style="width:18px;height:18px;margin:1px 0 0;accent-color:#16181D"><span>Saglabāt manus braucienus šajā ierīcē, lai nākamreiz rezervētu ātrāk (pēc izvēles, bez paroles).</span></label>' +
+        '<button class="ghost" data-act="step" data-v="time">← Atpakaļ uz laiku</button>';
+    }
+
+    if (done) {
+      var req = c.mode === 'car', wait = req && stage === 0;
+      h += '<div style="background:' + (wait ? '#F6F5F1' : '#E6F2EA') + ';border-radius:14px;padding:14px"><b style="font-size:18px">' + (req ? (wait ? 'Pieprasījums nosūtīts' : 'Brauciens apstiprināts') : 'Brauciens garantēts') + '</b><p class="hint" style="color:#16181D;margin-top:4px">' +
+        (req ? (wait ? 'Vadītājs apstiprinās vai noraidīs. Ja nav brīva vadītāja, saņemsiet ziņu uzreiz.' : 'Vadītājs apstiprināja. Maksājums ar karti automašīnā.') : 'Maksājums saņemts. Laiks jūsu braucienam ir rezervēts kalendārā.') + '</p></div>' +
+        '<div class="row"><span>Rezervācija</span><b style="color:#16181D">JKI-2610-0412</b></div><div class="row"><span>Maršruts</span><b style="color:#16181D">' + pickName + ' → ' + dropName + '</b></div><div class="row"><span>Laiks</span><b style="color:#16181D">' + when + '</b></div><div class="row"><span>Cena</span><b style="color:#16181D">' + (req ? eur(R.r) + ' · maksā automašīnā' : eur(R.g) + ' · apmaksāts') + '</b></div><div style="height:1px;background:#E2E0D8"></div><div>';
+      list.forEach(function (s, i) {
+        h += '<div class="tl"><div class="rail"><i style="border-color:' + (i <= stage ? '#16181D' : '#C9C6BC') + ';background:' + (i < stage ? '#16181D' : i === stage ? '#F2B705' : '#fff') + '"></i><u style="background:' + (i === list.length - 1 ? 'transparent' : i < stage ? '#16181D' : '#E2E0D8') + '"></u></div><div class="txt"><span style="font-weight:' + (i === stage ? 800 : 600) + ';color:' + (i <= stage ? '#16181D' : '#5B5F68') + '">' + s.l + '</span><small>' + s.h + '</small></div></div>';
+      });
+      h += '</div><button class="cta" data-act="next" style="height:48px;font-size:14px">Demo: nākamais statuss ▸</button><div style="display:flex;gap:8px"><button class="out" style="flex:1">Pievienot kalendāram</button><button class="out" data-act="restart" style="flex:1">Jauns brauciens</button></div><p class="hint" style="font-size:12px">Statusa saite nosūtīta SMS un e-pastā — atveras bez paroles. Bezmaksas atcelšana līdz 12 h pirms brauciena.</p>';
+    }
+    return h + '</div></div>';
+  }
+
+  function driver() {
+    var d = S.d, s = d.stage;
+    var LAB = ['Apstiprināts', 'Vadītājs ceļā', 'Vadītājs ieradies', 'Brauciens notiek', 'Pabeigts'];
+    var ACT = ['Sākt — braucu pie klienta', 'Esmu ieradies', 'Klients iekāpis — sākt braucienu', 'Pabeigt braucienu', 'Sākt no jauna (demo)'];
+    var CAR = [[330, 18], [300, 30], [300, 30], [170, 55], [60, 48]];
+    var jobs = [['08:00', 'Vecrīga → Pasažieru osta', '≈ 3 km · 16,30 €', 'APMAKSĀTS', '#E6F2EA'], ['13:00', 'Lidosta RIX → Jūrmala', '≈ 17 km · 31,70 €', 'APMAKSĀTS', '#E6F2EA']];
+    if (d.incoming === 'accepted') jobs.push(['16:00', 'Imanta → Lidosta RIX', '≈ 8 km · 13,80 €', 'MAKSĀ AUTO', '#F2B705']);
+    var h = '<div class="phone dark"><div style="padding:16px;display:flex;justify-content:space-between;align-items:center"><div><span style="font-size:12px;color:#C9CBD1">Vadītājs 1 · Šodien, P 26.10</span><br><b style="font-size:20px">Mani braucieni</b></div>' +
+      '<button data-act="online" style="height:36px;padding:0 12px;border-radius:999px;border:none;background:' + (d.online ? '#E6F2EA' : '#2A2D35') + ';color:' + (d.online ? '#16181D' : '#E4E5E8') + ';font-size:12px;font-weight:800">● ' + (d.online ? 'Tiešsaistē' : 'Bezsaistē') + '</button></div>' +
+      '<div style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:12px">';
+    if (d.incoming === 'open') h += '<div class="card" style="padding:14px;border:3px solid #F2B705;display:flex;flex-direction:column;gap:10px"><div style="display:flex;justify-content:space-between"><span class="tag" style="background:#F2B705">JAUNS PIEPRASĪJUMS</span><span style="font-size:12px;font-weight:700;color:#3D4048">Atbildēt 4:52</span></div><div><b style="font-size:18px">16:00 · Imanta → Lidosta RIX</b><br><span style="font-size:13px;color:#3D4048">≈ 8 km · ≈ 20 min · 13,80 € · klients maksā automašīnā</span></div><div style="display:flex;gap:8px"><button data-act="decline" style="flex:1;height:48px;border-radius:12px;border:1px solid #16181D;background:#fff;font-weight:800;color:#16181D">Noraidīt</button><button data-act="accept" style="flex:2;height:48px;border-radius:12px;border:none;background:#16181D;color:#fff;font-weight:800">Pieņemt</button></div><span style="font-size:11px;color:#3D4048">Noraidot — automātiski tiek piedāvāts Vadītājam 2 (partneris).</span></div>';
+    else h += '<div style="background:#2A2D35;border-radius:12px;padding:12px;font-size:13px;color:#E4E5E8">' + (d.incoming === 'accepted' ? '16:00 brauciens pieņemts — klients saņēma apstiprinājumu.' : '16:00 pieprasījums noraidīts — piedāvāts Vadītājam 2.') + '</div>';
+    h += '<div class="card" style="overflow:hidden"><div style="padding:14px"><div style="display:flex;justify-content:space-between"><b style="font-size:12px;color:#1E7A46">AKTĪVAIS BRAUCIENS</b><span style="font-size:12px;font-weight:700;color:#3D4048">Apmaksāts · garantēts</span></div><b style="font-size:18px;display:block;margin-top:6px">04:30 · Purvciems → Lidosta RIX</b><span style="font-size:13px;color:#3D4048">Ieriķu iela → Termināls, izlidošana · ≈ 17 km · 38,04 €</span></div>' +
+      '<div style="position:relative;height:140px;background:#ECEAE3"><svg width="100%" height="140" viewBox="0 0 358 140" aria-hidden="true" style="position:absolute;left:0;top:0"><path d="M0,40 C80,60 140,30 220,70 C270,95 320,80 358,100" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M300,30 C260,60 230,70 220,70 C160,40 110,60 60,48" fill="none" stroke="#1F4FD1" stroke-width="4" stroke-linecap="round"/><circle cx="300" cy="30" r="7" fill="#1E7A46" stroke="#16181D" stroke-width="2"/><circle cx="60" cy="48" r="7" fill="#16181D"/><circle cx="' + CAR[s][0] + '" cy="' + CAR[s][1] + '" r="9" fill="#F2B705" stroke="#16181D" stroke-width="3"/></svg>' +
+      (s >= 1 && s <= 3 ? '<span style="position:absolute;left:10px;bottom:10px;background:#16181D;color:#fff;font-size:11px;font-weight:700;padding:5px 9px;border-radius:999px">● Atrašanās vieta redzama klientam</span>' : '') + '</div>' +
+      '<div style="padding:14px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;gap:6px">' + LAB.map(function (l, i) { return '<i style="flex:1;height:4px;border-radius:2px;background:' + (i <= s ? '#16181D' : '#E2E0D8') + '"></i>'; }).join('') + '</div>' +
+      '<span style="font-size:13px;color:#3D4048">Statuss klientam: <b style="color:#16181D">' + LAB[s] + '</b></span><button class="cta" data-act="advance" style="height:54px;font-size:16px">' + ACT[s] + '</button>' +
+      '<a href="https://waze.com/ul?ll=56.9236,23.9711&navigate=yes" target="_blank" rel="noopener" style="height:48px;border-radius:14px;border:1px solid #16181D;color:#16181D;text-decoration:none;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center">➤ Navigēt ar Waze</a>' +
+      '<div style="display:flex;gap:8px"><a href="tel:+37100000000" style="flex:1;height:44px;border-radius:12px;background:#F6F5F1;color:#16181D;text-decoration:none;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center">Zvanīt klientam</a><button style="flex:1;height:44px;border-radius:12px;border:none;background:#F6F5F1;font-size:13px;font-weight:700;color:#16181D">Pārsūtīt citam</button></div></div></div>' +
+      '<b style="font-size:13px;color:#C9CBD1;margin-top:4px">Vēlāk šodien</b>';
+    jobs.forEach(function (j) {
+      h += '<div style="background:#22252C;border-radius:14px;padding:12px 14px;display:flex;gap:12px;align-items:center"><b style="font-size:18px;width:56px">' + j[0] + '</b><div style="flex:1"><b style="font-size:14px">' + j[1] + '</b><br><span style="font-size:12px;color:#C9CBD1">' + j[2] + '</span></div><span class="tag" style="background:' + j[4] + ';color:#16181D">' + j[3] + '</span></div>';
+    });
+    return h + '</div><div style="height:64px;flex-shrink:0;border-top:1px solid #2A2D35;display:flex;font-size:12px;font-weight:800"><span style="flex:1;display:flex;align-items:center;justify-content:center">Šodien</span><span style="flex:1;display:flex;align-items:center;justify-content:center;color:#C9CBD1">Kalendārs</span><span style="flex:1;display:flex;align-items:center;justify-content:center;color:#C9CBD1">Ienākumi</span></div></div>';
+  }
+
+  function examples() {
+    var a = S.a, sub = num(a.base) + 12 * num(a.perKm), g = sub + num(a.guarantee);
+    return { day: eur(g), night: eur(g * (1 + num(a.night) / 100)), car: a.carPay ? eur(sub) : 'izslēgts' };
+  }
+  function admin() {
+    var H0 = 4, H1 = 18;
+    function pct(x) { return ((x - H0) / (H1 - H0) * 100).toFixed(2) + '%'; }
+    function blk(a, b, kind, label, title) {
+      var st = { buffer: 'class="blk stripe"', ride: 'class="blk" style="background:#16181D;color:#fff;', req: 'class="blk" style="background:#F2B705;', conflict: 'class="blk" style="background:#FBEAEA;border:2px dashed #B3261E;color:#B3261E;' }[kind];
+      var pos = 'left:' + pct(a) + ';width:' + ((b - a) / (H1 - H0) * 100).toFixed(2) + '%';
+      return kind === 'buffer' ? '<div ' + st + ' title="' + title + '" style="' + pos + '"></div>' : '<div ' + st + pos + '" title="' + title + '">' + label + '</div>';
+    }
+    var lanes = [
+      ['Vadītājs 1', 'Galvenais', [blk(4.08, 4.5, 'buffer', '', 'Ceļš līdz klientam'), blk(4.5, 5.25, 'ride', '04:30 → RIX', '04:30 Purvciems → Lidosta RIX'), blk(5.5, 6, 'conflict', '05:30 ✕', '05:30 pārklājas — pārsūtīts Vadītājam 2'), blk(7.75, 8, 'buffer', '', 'Ceļš līdz klientam'), blk(8, 8.5, 'ride', '08:00', '08:00 Vecrīga → Pasažieru osta'), blk(12.5, 13, 'buffer', '', 'Ceļš līdz klientam'), blk(13, 13.75, 'ride', '13:00 → Jūrmala', '13:00 Lidosta RIX → Jūrmala'), blk(15.67, 16, 'buffer', '', 'Ceļš līdz klientam'), blk(16, 16.5, 'req', '16:00 ?', '16:00 Imanta → Lidosta RIX — gaida apstiprinājumu')]],
+      ['Vadītājs 2', 'Partneris', [blk(5.08, 5.5, 'buffer', '', 'Ceļš līdz klientam'), blk(5.5, 6.17, 'ride', '05:30 → RIX', '05:30 Vecrīga → Lidosta RIX (pārsūtīts)')]]
+    ];
+    var rows = [
+      ['04:30', 'Purvciems → Lidosta RIX', '38,04 €', 'Apple Pay', 'Pabeigts', '#ECEAE3', 'Vadītājs 1'],
+      ['05:30', 'Vecrīga → Lidosta RIX', '31,44 €', 'Bankas maksājums', 'Pārsūtīts — pārklājās', '#FBEAEA', 'Vadītājs 2'],
+      ['08:00', 'Vecrīga → Pasažieru osta', '16,30 €', 'Google Pay', 'Garantēts', '#E6F2EA', 'Vadītājs 1'],
+      ['13:00', 'Lidosta RIX → Jūrmala', '31,70 €', 'Apple Pay', 'Garantēts', '#E6F2EA', 'Vadītājs 1'],
+      ['16:00', 'Imanta → Lidosta RIX', '13,80 €', 'Maksā automašīnā', 'Gaida apstiprinājumu', '#FCEFC2', 'Vadītājs 1']
+    ];
+    var rules = [['Bāzes maksa', '€', 'base'], ['Cena par km', '€', 'perKm'], ['Garantētā laika piemaksa', '€', 'guarantee'], ['Nakts piemaksa 22:00–06:00', '%', 'night'], ['Bufers starp braucieniem', 'min', 'buffer'], ['Bezmaksas atcelšana līdz', 'h', 'cancel']];
+    var ex = examples();
+    var h = '<div class="admin"><nav aria-label="Sadaļas"><a class="on" href="#cal">Kalendārs</a><a href="#list">Braucieni</a><a href="#prices">Cenas un noteikumi</a><a href="#drivers">Vadītāji</a></nav><main>' +
+      '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px"><div><h1 style="font-size:26px">Šodienas kalendārs</h1><span style="font-size:14px;color:#5B5F68">5 braucieni · 1 gaida apstiprinājumu · 1 pārsūtīts partnerim pārklāšanās dēļ</span></div><div style="display:flex;gap:8px"><button class="out" style="height:40px;padding:0 14px">‹ Vakar</button><button class="out" style="height:40px;padding:0 14px">Rīt ›</button><button class="cta" style="height:40px;padding:0 14px;font-size:13px">Bloķēt laiku</button></div></div>' +
+      '<section id="cal" class="panel"><div class="lane"><div class="who"></div><div style="flex:1;position:relative;height:18px">';
+    for (var t = H0; t <= H1; t += 2) h += '<span style="position:absolute;left:' + pct(t) + ';transform:translateX(-50%);font-size:11px;font-weight:700;color:#5B5F68">' + (t < 10 ? '0' : '') + t + ':00</span>';
+    h += '</div></div>';
+    lanes.forEach(function (l) { h += '<div class="lane"><div class="who">' + l[0] + '<small>' + l[1] + '</small></div><div class="track">' + l[2].join('') + '</div></div>'; });
+    h += '<div class="legend"><span><i style="background:#16181D"></i>Apmaksāts brauciens</span><span><i style="background:#F2B705"></i>Pieprasījums (maksā auto)</span><span><i class="stripe"></i>Ceļš līdz klientam + bufers</span><span><i style="border:2px dashed #B3261E"></i>Pārklāšanās → pārsūtīts</span></div></section>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start"><section id="list" class="panel" style="flex:2 1 520px;min-width:0"><h2>Braucieni</h2><div style="overflow-x:auto"><table><thead><tr><th>Laiks</th><th>Maršruts</th><th>Cena</th><th>Apmaksa</th><th>Statuss</th><th>Vadītājs</th></tr></thead><tbody>';
+    rows.forEach(function (r) { h += '<tr><td><b>' + r[0] + '</b></td><td style="font-weight:600">' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3] + '</td><td><span class="tag" style="background:' + r[5] + '">' + r[4] + '</span></td><td>' + r[6] + '</td></tr>'; });
+    h += '</tbody></table></div></section><div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:20px"><section id="prices" class="panel"><h2>Cenas un noteikumi</h2>';
+    rules.forEach(function (r) { h += '<label class="rule"><span>' + r[0] + '</span><span style="display:flex;align-items:center;gap:6px"><input type="text" inputmode="decimal" data-rule="' + r[2] + '" value="' + esc(S.a[r[2]]) + '"><span style="width:28px;font-size:12px;color:#5B5F68">' + r[1] + '</span></span></label>'; });
+    h += '<label class="rule"><span>Atļaut “maksāt automašīnā”</span><input type="checkbox" data-act="carpay"' + (S.a.carPay ? ' checked' : '') + ' style="width:20px;height:20px;accent-color:#16181D"></label>' +
+      '<div class="info" style="flex-direction:column;align-items:flex-start;gap:4px"><b>Piemērs: Vecrīga → Lidosta RIX, 12 km</b><span>Dienā, garantēts: <b id="exDay">' + ex.day + '</b></span><span>Naktī, garantēts: <b id="exNight">' + ex.night + '</b></span><span>Maksā automašīnā: <b id="exCar">' + ex.car + '</b></span></div></section>' +
+      '<section id="drivers" class="panel"><div style="display:flex;justify-content:space-between;align-items:center"><h2>Vadītāji</h2><button class="out" style="height:36px;padding:0 12px">+ Pievienot</button></div>' +
+      '<div class="row" style="color:#16181D;border-top:1px solid #E2E0D8;padding-top:10px"><span><b>Vadītājs 1</b><br><span style="color:#5B5F68">Galvenais · iPhone</span></span><span class="tag" style="background:#E6F2EA;align-self:center">Tiešsaistē</span></div>' +
+      '<div class="row" style="color:#16181D;border-top:1px solid #E2E0D8;padding-top:10px"><span><b>Vadītājs 2</b><br><span style="color:#5B5F68">Partneris · saņem pārsūtītos</span></span><span class="tag" style="background:#ECEAE3;align-self:center">Pēc pieprasījuma</span></div></section></div></div></main></div>';
+    return h;
+  }
+
+  var view = document.getElementById('view');
+  function render() {
+    view.innerHTML = S.tab === 'client' ? client() : S.tab === 'driver' ? driver() : admin();
+    document.querySelectorAll('.tab').forEach(function (b) { var on = b.getAttribute('data-v') === S.tab; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-act]'); if (!el || el.disabled) return;
+    var act = el.getAttribute('data-act'), v = el.getAttribute('data-v'), c = S.c;
+    if (act === 'tab') S.tab = v;
+    else if (act === 'pick') { if (c.step !== 'route') return; if (!c.pick || c.drop) { c.pick = v; c.drop = null; } else if (v !== c.pick) c.drop = v; }
+    else if (act === 'swap') { var t = c.pick; c.pick = c.drop; c.drop = t; }
+    else if (act === 'quick') { c.drop = v; if (!c.pick || c.pick === v) c.pick = 'C'; }
+    else if (act === 'step') c.step = v;
+    else if (act === 'day') { c.day = +v; c.slot = null; }
+    else if (act === 'slot') c.slot = v;
+    else if (act === 'pay') { c.step = 'done'; c.mode = v; c.stage = 0; }
+    else if (act === 'optin') { c.optIn = el.checked; return; }
+    else if (act === 'next') { var n = statuses(route()).length; c.stage = c.stage >= n - 1 ? 0 : c.stage + 1; }
+    else if (act === 'restart') S.c = { step: 'route', pick: null, drop: null, day: 0, slot: null, mode: 'prepaid', stage: 0, optIn: false };
+    else if (act === 'accept') S.d.incoming = 'accepted';
+    else if (act === 'decline') S.d.incoming = 'declined';
+    else if (act === 'advance') S.d.stage = S.d.stage >= 4 ? 0 : S.d.stage + 1;
+    else if (act === 'online') S.d.online = !S.d.online;
+    else if (act === 'carpay') { S.a.carPay = el.checked; document.getElementById('exCar').textContent = examples().car; return; }
+    else return;
+    render();
+  });
+  document.addEventListener('input', function (e) {
+    var k = e.target.getAttribute && e.target.getAttribute('data-rule'); if (!k) return;
+    S.a[k] = e.target.value; var ex = examples();
+    document.getElementById('exDay').textContent = ex.day;
+    document.getElementById('exNight').textContent = ex.night;
+    document.getElementById('exCar').textContent = ex.car;
+  });
+  render();
+})();
+</script>
+</body>
+</html>
